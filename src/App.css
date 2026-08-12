@@ -3,72 +3,174 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000000;
+  background: linear-gradient(135deg, #0a0e27 0%, #16213e 100%);
   padding: 24px;
+  font-family: 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .canvas-page {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
+}
+
+.canvas-header {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.canvas-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff8800 0%, #ffaa33 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+
+.canvas-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 .canvas-form {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: flex-end;
-  background: #1a1a1a;
-  padding: 16px;
+  background: rgba(30, 41, 82, 0.8);
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   color: #ffffff;
+  border: 1px solid rgba(255, 136, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .canvas-form label {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   font-weight: 600;
   color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .canvas-form input {
-  padding: 8px;
-  border: 1px solid #ff8800;
+  padding: 10px 14px;
+  border: 2px solid rgba(255, 136, 0, 0.3);
   border-radius: 8px;
-  background: #2a2a2a;
+  background: rgba(42, 42, 42, 0.8);
   color: #ffffff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.canvas-form input:focus {
+  outline: none;
+  border-color: #ff8800;
+  background: rgba(42, 42, 42, 1);
+  box-shadow: 0 0 12px rgba(255, 136, 0, 0.3);
+}
+
+.canvas-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .canvas-form button {
-  padding: 9px 14px;
+  padding: 10px 18px;
   border: none;
   border-radius: 8px;
   background: #ff8800;
   color: #000000;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
+}
+
+.canvas-form button:hover {
+  background: #ffaa33;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
+}
+
+.canvas-form button:active {
+  transform: translateY(0);
+}
+
+.canvas-form button:nth-child(3) {
+  background: transparent;
+  border: 2px solid #ff8800;
+  color: #ff8800;
+}
+
+.canvas-form button:nth-child(3):hover {
+  background: rgba(255, 136, 0, 0.1);
 }
 
 .canvas-wrapper {
-  background: #000000;
-  border-radius: 16px;
-  padding: 12px;
+  background: rgba(15, 25, 50, 0.9);
+  border-radius: 12px;
+  padding: 24px;
   overflow: auto;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.05);
   color: #ffffff;
+  border: 1px solid rgba(255, 136, 0, 0.2);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.canvas-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 136, 0, 0.05) 0%, transparent 80%);
+  pointer-events: none;
+  border-radius: 12px;
 }
 
 .canvas-grid {
   margin: 0;
-  font-family: monospace;
-  line-height: 1.2;
+  font-family: 'Courier New', monospace;
+  line-height: 1.5;
   color: #ff8800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 8px rgba(255, 136, 0, 0.2);
 }
 
 .canvas-row {
   white-space: pre;
+  margin: 2px 0;
+  transition: text-shadow 0.2s ease;
+}
+
+.canvas-row:hover {
+  text-shadow: 0 0 12px rgba(255, 136, 0, 0.4);
 }
 
 canvas {
@@ -80,38 +182,171 @@ canvas {
 
 .command-form {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: flex-end;
-  background: #1a1a1a;
-  padding: 16px;
+  background: rgba(30, 41, 82, 0.8);
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   color: #ffffff;
+  border: 1px solid rgba(255, 136, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .command-form label {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   font-weight: 600;
   color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 1;
 }
 
 .command-form input {
-  padding: 8px;
-  border: 1px solid #ff8800;
+  padding: 10px 14px;
+  border: 2px solid rgba(255, 136, 0, 0.3);
   border-radius: 8px;
-  background: #2a2a2a;
+  background: rgba(42, 42, 42, 0.8);
   color: #ffffff;
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.command-form input:focus {
+  outline: none;
+  border-color: #ff8800;
+  background: rgba(42, 42, 42, 1);
+  box-shadow: 0 0 12px rgba(255, 136, 0, 0.3);
+}
+
+.command-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .command-form button {
-  padding: 9px 14px;
+  padding: 10px 18px;
   border: none;
   border-radius: 8px;
   background: #ff8800;
   color: #000000;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
+}
+
+.command-form button:hover {
+  background: #ffaa33;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
+}
+
+.command-form button:active {
+  transform: translateY(0);
+}
+
+.status-message {
+  background: linear-gradient(135deg, rgba(255, 136, 0, 0.1) 0%, rgba(255, 136, 0, 0.05) 100%);
+  color: #ffb84d;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #ff8800;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  border: 1px solid rgba(255, 136, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 136, 0, 0.15);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.command-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  background: rgba(30, 41, 82, 0.8);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  border: 1px solid rgba(255, 136, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.command-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+.command-form input {
+  padding: 10px 14px;
+  border: 2px solid rgba(255, 136, 0, 0.3);
+  border-radius: 8px;
+  background: rgba(42, 42, 42, 0.8);
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.command-form input:focus {
+  outline: none;
+  border-color: #ff8800;
+  background: rgba(42, 42, 42, 1);
+  box-shadow: 0 0 12px rgba(255, 136, 0, 0.3);
+}
+
+.command-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.command-form button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #ff8800;
+  color: #000000;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
+}
+
+.command-form button:hover {
+  background: #ffaa33;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
+}
+
+.command-form button:active {
+  transform: translateY(0);
 }
 
 .status-message {

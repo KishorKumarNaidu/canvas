@@ -262,6 +262,11 @@ function CanvasPage() {
 
   return (
     <div className="canvas-page">
+      <div className="canvas-header">
+        <h1>Canvas Drawing Studio</h1>
+        <p className="canvas-subtitle">Draw lines, rectangles, and fill areas with commands</p>
+      </div>
+
       <form className="canvas-form" onSubmit={handleCreate}>
         <label>
           Width
@@ -289,19 +294,22 @@ function CanvasPage() {
         <button type="button" onClick={handleQuit}>Quit</button>
       </form>
 
-      <form className="command-form" onSubmit={handleCommandSubmit}>
-        <label>
-          Enter command
-          <input
-            type="text"
-            value={command}
-            onChange={(e) => setCommand(e.target.value)}
-            placeholder="e.g. L 1 2 6 2"
-          />
-        </label>
+      {canvas.length > 0 && (
+        <form className="command-form" onSubmit={handleCommandSubmit}>
+          <label>
+            Enter command
+            <input
+              type="text"
+              value={command}
+              onChange={(e) => setCommand(e.target.value)}
+              placeholder="e.g. L 1 2 6 2"
+              autoFocus
+            />
+          </label>
 
-        <button type="submit">Run Command</button>
-      </form>
+          <button type="submit">Run Command</button>
+        </form>
+      )}
 
       {statusMessage ? <p className="status-message">{statusMessage}</p> : null}
 
